@@ -10,6 +10,4 @@ public class StockTransaction {
 
     InvestmentAccount account;
     Stock stock;
-
-
 }
