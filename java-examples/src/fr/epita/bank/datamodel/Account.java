@@ -11,6 +11,10 @@ public class Account {
     }
 
     public void setBalance(Double balance) {
+        if (balance < 0) {
+            //nothing
+            return;
+        }
         this.balance = balance;
     }
 

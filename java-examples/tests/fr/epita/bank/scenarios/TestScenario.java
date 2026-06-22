@@ -1,7 +1,8 @@
 package fr.epita.bank.scenarios;
 
-import fr.epita.bank.datamodel.Customer;
-import fr.epita.bank.datamodel.SavingsAccount;
+import fr.epita.bank.datamodel.*;
+
+import java.time.LocalDate;
 
 public class TestScenario {
 
@@ -30,11 +31,34 @@ public class TestScenario {
 
         //write a program allowing to implement the following scenario:
         //1. investment account
+        InvestmentAccount investmentAccount = new InvestmentAccount();
+
         //2. set the same customer as owner
+        investmentAccount.setCustomer(customer);
+
         //3. set the investment account to 28 000€
+        investmentAccount.setBalance(28000.0);
+
         //4. define the GOLD stock (unit price = 10000€)
+        Stock stock = new Stock();
+        stock.setPrice(10000.0);
+        stock.setTicker("GOLD");
+
         //5. buy 2 GOLD stocks
+        StockTransaction tx = new StockTransaction();
+        tx.setStock(stock);
+        tx.setAccount(investmentAccount);
+        tx.setQuantity(2);
+        tx.setUnitPrice(stock.getPrice());
+        tx.setTxDate(LocalDate.now());
+
+        Double txAmount = tx.getQuantity() * tx.getUnitPrice();
+        double finalBalance = investmentAccount.getBalance() - txAmount;
+        investmentAccount.setBalance(finalBalance);
+
         //6. what is the final balance of the investment account?
+        System.out.println("final balance = " + investmentAccount.getBalance());
+
         //7. what should happen in case we try to buy more than 3 GOLD stocks?
 
     }
