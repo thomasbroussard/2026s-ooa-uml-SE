@@ -27,5 +27,15 @@ public class TestScenario {
         savingsAccount.setBalance(savingsAccount.getBalance() + gain);
         System.out.println("final balance = " + savingsAccount.getBalance());
 
+
+        //write a program allowing to implement the following scenario:
+        //1. investment account
+        //2. set the same customer as owner
+        //3. set the investment account to 28 000€
+        //4. define the GOLD stock (unit price = 10000€)
+        //5. buy 2 GOLD stocks
+        //6. what is the final balance of the investment account?
+        //7. what should happen in case we try to buy more than 3 GOLD stocks?
+
     }
 }
