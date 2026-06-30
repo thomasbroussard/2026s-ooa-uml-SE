@@ -25,12 +25,8 @@ public class AccountService {
 
 
     public static void buyStocks(Stock stock, int qty, InvestmentAccount investmentAccount) {
-        StockTransaction tx = new StockTransaction();
-        tx.setStock(stock);
-        tx.setAccount(investmentAccount);
-        tx.setQuantity(qty);
-        tx.setUnitPrice(stock.getPrice());
-        tx.setTxDate(LocalDate.now());
+        StockTransaction tx = new StockTransaction(stock.getPrice(), qty, 0.01, LocalDate.now(), investmentAccount, stock);
+
 
         Double txAmount = tx.getQuantity() * tx.getUnitPrice();
         double finalBalance = investmentAccount.getBalance() - txAmount;
