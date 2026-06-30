@@ -1,6 +1,7 @@
 package fr.epita.bank.scenarios;
 
 import fr.epita.bank.datamodel.*;
+import fr.epita.bank.services.AccountService;
 
 import java.time.LocalDate;
 
@@ -24,10 +25,8 @@ public class TestScenario {
         savingsAccount.setInterestRate(0.10);
 
         //4. compute the gain in cas we have reached the "gain" calculation moment.
-        double gain = savingsAccount.getBalance() * savingsAccount.getInterestRate();
-        savingsAccount.setBalance(savingsAccount.getBalance() + gain);
-        System.out.println("final balance = " + savingsAccount.getBalance());
-
+        double gain = AccountService.computeGainAndUpdateBalance(savingsAccount);
+        System.out.println(gain);
 
         //write a program allowing to implement the following scenario:
         //1. investment account
@@ -45,6 +44,16 @@ public class TestScenario {
         stock.setTicker("GOLD");
 
         //5. buy 2 GOLD stocks
+        buyStocks(stock, investmentAccount);
+
+        //6. what is the final balance of the investment account?
+        System.out.println("final balance = " + investmentAccount.getBalance());
+
+        //7. what should happen in case we try to buy more than 3 GOLD stocks?
+
+    }
+
+    private static void buyStocks(Stock stock, InvestmentAccount investmentAccount) {
         StockTransaction tx = new StockTransaction();
         tx.setStock(stock);
         tx.setAccount(investmentAccount);
@@ -55,11 +64,6 @@ public class TestScenario {
         Double txAmount = tx.getQuantity() * tx.getUnitPrice();
         double finalBalance = investmentAccount.getBalance() - txAmount;
         investmentAccount.setBalance(finalBalance);
-
-        //6. what is the final balance of the investment account?
-        System.out.println("final balance = " + investmentAccount.getBalance());
-
-        //7. what should happen in case we try to buy more than 3 GOLD stocks?
-
     }
+
 }
