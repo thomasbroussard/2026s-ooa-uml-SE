@@ -3,12 +3,20 @@ package fr.epita.bank.scenarios;
 import fr.epita.bank.datamodel.*;
 import fr.epita.bank.services.AccountService;
 
+
 import java.time.LocalDate;
 
 public class TestScenario {
 
 
+
+    int test;
+
     public static void main(String[] args) {
+
+        int test;
+        Integer test2;
+
         System.out.println("test");
 
         Customer customer = new Customer();
@@ -44,7 +52,7 @@ public class TestScenario {
         stock.setTicker("GOLD");
 
         //5. buy 2 GOLD stocks
-        buyStocks(stock, investmentAccount);
+        AccountService.buyStocks(stock, 2, investmentAccount);
 
         //6. what is the final balance of the investment account?
         System.out.println("final balance = " + investmentAccount.getBalance());
@@ -53,17 +61,5 @@ public class TestScenario {
 
     }
 
-    private static void buyStocks(Stock stock, InvestmentAccount investmentAccount) {
-        StockTransaction tx = new StockTransaction();
-        tx.setStock(stock);
-        tx.setAccount(investmentAccount);
-        tx.setQuantity(2);
-        tx.setUnitPrice(stock.getPrice());
-        tx.setTxDate(LocalDate.now());
-
-        Double txAmount = tx.getQuantity() * tx.getUnitPrice();
-        double finalBalance = investmentAccount.getBalance() - txAmount;
-        investmentAccount.setBalance(finalBalance);
-    }
 
 }

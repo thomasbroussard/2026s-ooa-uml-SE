@@ -12,6 +12,23 @@ public class StockTransaction {
     Stock stock;
 
 
+
+    public StockTransaction(){}
+
+    public StockTransaction(Double unitPrice,
+                            Integer quantity,
+                            Double commission,
+                            LocalDate txDate,
+                            InvestmentAccount account,
+                            Stock stock) {
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+        this.commission = commission;
+        this.txDate = txDate;
+        this.account = account;
+        this.stock = stock;
+    }
+
     public Double getUnitPrice() {
         return unitPrice;
     }
