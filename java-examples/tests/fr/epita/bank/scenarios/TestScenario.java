@@ -5,6 +5,7 @@ import fr.epita.bank.services.AccountService;
 
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class TestScenario {
 
@@ -13,6 +14,8 @@ public class TestScenario {
     int test;
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
 
         int test;
         Integer test2;
@@ -21,16 +24,24 @@ public class TestScenario {
 
         Customer customer = new Customer();
         //1. put name = "Thomas", adress = "paris"
-        customer.setName("Thomas");
-        customer.setAddress("paris");
+        System.out.println("Give me your name:");
+        customer.setName(scanner.nextLine());
+
+        System.out.println("Give me your address:");
+        customer.setAddress(scanner.nextLine());
+
 
 
         //2. initialize savings account with 500,0€ balance
+        System.out.println("account creation, input the balance:");
         SavingsAccount savingsAccount = new SavingsAccount();
-        savingsAccount.setBalance(500.0);
+        String line = scanner.nextLine();
+        savingsAccount.setBalance(Double.parseDouble(line));
 
         //3. set the interest rate to 10% (0.10)
-        savingsAccount.setInterestRate(0.10);
+        System.out.println("input the interest rate:");
+        line = scanner.nextLine();
+        savingsAccount.setInterestRate(Double.parseDouble(line));
 
         //4. compute the gain in cas we have reached the "gain" calculation moment.
         double gain = AccountService.computeGainAndUpdateBalance(savingsAccount);
@@ -59,6 +70,7 @@ public class TestScenario {
 
         //7. what should happen in case we try to buy more than 3 GOLD stocks?
 
+        scanner.close();
     }
 
 
