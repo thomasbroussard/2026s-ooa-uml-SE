@@ -4,19 +4,50 @@ import fr.epita.bank.datamodel.Customer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.*;
+import java.util.*;
 
 public class TestFileIO {
 
     public static void main(String[] args) {
         File file = new File("./java-examples/customers.csv");
+        //readFileTest(file);
+
+        try {
+            List<String> strings = Files.readAllLines(file.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Files.write(file.toPath(), Arrays.asList("a", "b", "c"), StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (PrintWriter writer = new PrintWriter(file)){
+
+            writer.println("a");
+            writer.println("b");
+            writer.println("c");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        // not necessary thanks to the try-with-resources statement
+//        finally {
+//            if (writer != null) {
+//                writer.close();
+//            }
+//        }
+
+    }
+
+    private static void readFileTest(File file) {
         Path p = Paths.get("src/fr/epita/bank/datamodel/customers.csv");
 
-        System.out.println("file exists:" +file.exists());
+        System.out.println("file exists:" + file.exists());
 
         try {
             List<Customer> customers = new ArrayList<>();
@@ -39,6 +70,5 @@ public class TestFileIO {
             System.out.println("File not found");
             e.printStackTrace();
         }
-
     }
 }
