@@ -5,7 +5,9 @@ import fr.epita.bank.datamodel.SavingsAccount;
 import fr.epita.bank.datamodel.Stock;
 import fr.epita.bank.datamodel.StockTransaction;
 
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AccountService {
 
@@ -32,5 +34,17 @@ public class AccountService {
         double finalBalance = investmentAccount.getBalance() - txAmount;
         investmentAccount.setBalance(finalBalance);
     }
+
+
+    public static void writeStocks(List<Stock> stocks,String path){
+        try(PrintWriter writer = new PrintWriter(path)) {
+            for (Stock stock : stocks) {
+                writer.println(stock.getTicker() + ";" + stock.getPrice());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }
