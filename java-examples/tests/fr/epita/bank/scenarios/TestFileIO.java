@@ -2,10 +2,7 @@ package fr.epita.bank.scenarios;
 
 import fr.epita.bank.datamodel.Customer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
@@ -27,7 +24,7 @@ public class TestFileIO {
             throw new RuntimeException(e);
         }
 
-        try (PrintWriter writer = new PrintWriter(file)){
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))){
 
             writer.println("a");
             writer.println("b");
