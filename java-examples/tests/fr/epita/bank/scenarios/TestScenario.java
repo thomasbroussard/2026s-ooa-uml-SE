@@ -5,6 +5,7 @@ import fr.epita.bank.services.AccountService;
 
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TestScenario {
@@ -70,6 +71,9 @@ public class TestScenario {
 
         //7. what should happen in case we try to buy more than 3 GOLD stocks?
 
+
+        //8. save stocks somewhere
+        AccountService.writeStocks(Arrays.asList(stock), "./test.csv");
         scanner.close();
     }
 

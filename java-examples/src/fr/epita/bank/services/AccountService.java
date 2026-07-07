@@ -38,6 +38,7 @@ public class AccountService {
 
     public static void writeStocks(List<Stock> stocks,String path){
         try(PrintWriter writer = new PrintWriter(path)) {
+            writer.println("ticker;price");
             for (Stock stock : stocks) {
                 writer.println(stock.getTicker() + ";" + stock.getPrice());
             }
