@@ -5,6 +5,8 @@ import fr.epita.biostats.service.BiostatEntryCsvService;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Launcher {
 
@@ -19,6 +21,17 @@ public class Launcher {
         System.out.println(averageAge);
 
 
-        entries.stream().mapToInt(BiostatEntry::getAge).average().ifPresent(System.out::println);
+        entries.parallelStream()
+                .mapToInt(BiostatEntry::getAge)
+                .average()
+                .ifPresent(System.out::println);
+
+
+       Map<String, Long> countByGender = entries.stream()
+                .collect(Collectors.groupingBy(BiostatEntry::getGender, Collectors.counting()));
+        System.out.println(countByGender);
+
     }
+
+
 }
