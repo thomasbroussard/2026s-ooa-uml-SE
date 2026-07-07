@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class TestIO {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        String doubleQuote = "\"";
+        doubleQuote.replace("\"", "");
         try { //this is a try-catch block, we will discuss it further
             System.out.println("Enter 1 number (integer): ");
             String num1 = scanner.nextLine();
