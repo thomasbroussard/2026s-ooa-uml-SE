@@ -12,6 +12,8 @@ import java.util.Scanner;
 public class BiostatEntryCsvService {
 
 
+    public static final String DELIMITER = ",";
+
     public static List<BiostatEntry> readCsv(String path) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(path));
         List<BiostatEntry> entries = new ArrayList<>();
@@ -20,7 +22,7 @@ public class BiostatEntryCsvService {
            String line = scanner.nextLine();
 
            line = line.replace("\"", "");
-           String[] parts = line.split(",");
+           String[] parts = line.split(DELIMITER);
 
            BiostatEntry entry = new BiostatEntry();
            entry.setName(parts[0].trim());
@@ -38,10 +40,10 @@ public class BiostatEntryCsvService {
         PrintWriter writer = new PrintWriter(path);
         writer.println("name;gender;age;height;weight");
         for (BiostatEntry entry : entries) {
-            writer.println(entry.getName() + ";"
-                    + entry.getGender() + ";"
-                    + entry.getAge() + ";"
-                    + entry.getHeight() + ";"
+            writer.println(entry.getName() + DELIMITER
+                    + entry.getGender() + DELIMITER
+                    + entry.getAge() + DELIMITER
+                    + entry.getHeight() + DELIMITER
                     + entry.getWeight());
         }
 
