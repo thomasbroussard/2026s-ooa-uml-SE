@@ -1,5 +1,7 @@
 package fr.epita.biostats.datamodel;
 
+import java.util.Objects;
+
 public class BiostatEntry {
 
     private String name;
@@ -47,5 +49,17 @@ public class BiostatEntry {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BiostatEntry that = (BiostatEntry) o;
+        return age == that.age && height == that.height && weight == that.weight && Objects.equals(name, that.name) && Objects.equals(gender, that.gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, gender, age, height, weight);
     }
 }
