@@ -15,8 +15,8 @@ public class BioStatJDBCDAO {
 
     public BioStatJDBCDAO() throws BackendInitException {
 
-        Connection connection = getConnection();
-        try {
+
+        try ( Connection connection = getConnection();) {
             PreparedStatement create = connection.prepareStatement(
                     """
                         CREATE TABLE IF NOT EXISTS 
@@ -38,7 +38,7 @@ public class BioStatJDBCDAO {
 
         //FIXME delegate this to the configuration file
         //url
-        String url = "jdbc:h2:mem:test";
+        String url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
 
         //user
         String user = "test";
@@ -77,10 +77,12 @@ public class BioStatJDBCDAO {
     }
 
     public BiostatEntry findById(int id) {
+
+        return null;
     }
 
     public List<BiostatEntry> find(BiostatEntry qbe){
-
+        return null;
     }
 }
 

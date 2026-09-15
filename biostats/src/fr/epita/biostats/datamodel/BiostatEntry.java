@@ -62,4 +62,16 @@ public class BiostatEntry {
     public int hashCode() {
         return Objects.hash(name, gender, age, height, weight);
     }
+
+    public BiostatEntry(){
+
+    }
+
+    public BiostatEntry(String name, String gender, int age, int height, int weight) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+    }
 }
