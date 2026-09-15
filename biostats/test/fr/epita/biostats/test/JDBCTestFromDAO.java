@@ -1,13 +1,11 @@
-package fr.epita.biostats.service;
+package fr.epita.biostats.test;
 
 import fr.epita.biostats.datamodel.BiostatEntry;
 import fr.epita.biostats.exceptions.BackendInitException;
 import fr.epita.biostats.exceptions.DataAccessException;
+import fr.epita.biostats.service.BioStatJDBCDAO;
 
-import java.security.spec.ECField;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.List;
 
 public class JDBCTestFromDAO {
 
@@ -16,8 +14,14 @@ public class JDBCTestFromDAO {
         BioStatJDBCDAO dao = new BioStatJDBCDAO();
         try {
             dao.save(new BiostatEntry("John", "M", 20, 170, 60));
-
-           // Connection connection = DriverManager.getConnection();// here is the check
+            BiostatEntry bio = new BiostatEntry();
+            bio.setName("Joh");
+            bio.setGender("M");
+            List<BiostatEntry> entries = dao.find(bio);
+            if (entries.size() != 1) {
+                System.out.println("Error size mismatch");
+            }
+            System.out.println(entries);
 
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
