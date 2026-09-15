@@ -1,6 +1,7 @@
 package fr.epita.biostats.service;
 
 import fr.epita.biostats.datamodel.BiostatEntry;
+import fr.epita.biostats.exceptions.BackendInitException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,16 +25,15 @@ public class BioStatJDBCDAO {
                                 HEIGHT INT, 
                                 WEIGHT INT)
                         """);
-
             create.execute();
         } catch (SQLException e) {
-            throw new BackendInitException(e);
+            throw   new BackendInitException(e);
         }
 
 
     }
 
-    private Connection getConnection() {
+    private Connection getConnection() throws SQLException{
 
         //FIXME delegate this to the configuration file
         //url
