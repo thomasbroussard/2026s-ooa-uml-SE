@@ -2,6 +2,7 @@ package fr.epita.biostats.service;
 
 import fr.epita.biostats.datamodel.BiostatEntry;
 import fr.epita.biostats.exceptions.BackendInitException;
+import fr.epita.biostats.exceptions.DataAccessException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,8 +50,25 @@ public class BioStatJDBCDAO {
         return DriverManager.getConnection(url, user, password);
     }
 
-    public void save(BiostatEntry entry) {
-        getConnection()
+    public void save(BiostatEntry entry) throws DataAccessException {
+
+        try (Connection connection =  getConnection()){
+            PreparedStatement insert = connection.prepareStatement(
+            """
+            INSERT INTO biostat(NAME, GENDER, AGE, HEIGHT, WEIGHT) 
+            VALUES (?, ?, ?, ?, ?);
+            """
+            );
+            insert.setString(1, entry.getName());
+            insert.setString(2, entry.getGender());
+            insert.setInt(3, entry.getAge());
+            insert.setInt(4, entry.getHeight());
+            insert.setInt(5, entry.getWeight());
+            insert.execute();
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+
     }
     public void delete(BiostatEntry entry) {
 
