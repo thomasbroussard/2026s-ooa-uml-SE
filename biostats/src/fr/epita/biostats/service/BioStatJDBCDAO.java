@@ -83,14 +83,27 @@ public class BioStatJDBCDAO {
         List<BiostatEntry> entries = new ArrayList<>();
         try (Connection connection = getConnection()) {
             PreparedStatement select = connection.prepareStatement("""
-                    SELECT NAME, GENDER, AGE FROM biostat;
+                    SELECT NAME, GENDER, AGE, HEIGHT, WEIGHT 
+                    FROM biostat
+                    WHERE 
+                        (? IS NULL OR NAME LIKE ?)
+                        AND GENDER = ?
+                    ;
                 """);
+
+            select.setString(1,  qbe.getName());
+            select.setString(2,  qbe.getName()+ "%");
+            select.setString(3,  qbe.getGender());
             ResultSet rs = select.executeQuery();
 
             while (rs.next()) {
-                System.out.println(rs.getString("NAME"));
-                System.out.println(rs.getString("GENDER"));
-                System.out.println(rs.getInt("AGE"));
+                BiostatEntry entry = new BiostatEntry();
+                entries.add(entry);
+                entry.setName(rs.getString("NAME"));
+                entry.setGender(rs.getString("GENDER"));
+                entry.setAge(rs.getInt("AGE"));
+                entry.setHeight(rs.getInt("HEIGHT"));
+                entry.setWeight(rs.getInt("WEIGHT"));
             }
         }catch (SQLException e) {
             throw new DataAccessException(e);
