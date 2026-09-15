@@ -4,10 +4,8 @@ import fr.epita.biostats.datamodel.BiostatEntry;
 import fr.epita.biostats.exceptions.BackendInitException;
 import fr.epita.biostats.exceptions.DataAccessException;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BioStatJDBCDAO {
@@ -81,8 +79,23 @@ public class BioStatJDBCDAO {
         return null;
     }
 
-    public List<BiostatEntry> find(BiostatEntry qbe){
-        return null;
+    public List<BiostatEntry> find(BiostatEntry qbe) throws DataAccessException {
+        List<BiostatEntry> entries = new ArrayList<>();
+        try (Connection connection = getConnection()) {
+            PreparedStatement select = connection.prepareStatement("""
+                    SELECT NAME, GENDER, AGE FROM biostat;
+                """);
+            ResultSet rs = select.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(rs.getString("NAME"));
+                System.out.println(rs.getString("GENDER"));
+                System.out.println(rs.getInt("AGE"));
+            }
+        }catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+        return entries;
     }
 }
 
